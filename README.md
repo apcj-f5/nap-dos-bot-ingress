@@ -1,2 +1,2 @@
-# appsec-poc
-PoC to test WAF, Bots, DoS with NGINX App Protect
+# nap-dos-bot-ingress
+PoC to test WAF, Bots, DoS with NGINX App Protect as ingress controller
