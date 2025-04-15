@@ -17,13 +17,13 @@ metadata:
   namespace: nginx-ingress
 spec:
   containers:
-  - name: log-viewer
-    image: busybox
-    command: ["tail", "-f", "/var/log/app_protect_dos/dos.log"]
-    volumeMounts:
-    - name: log-volume
-      mountPath: /var/log/app_protect_dos
+    - name: log-viewer
+      image: busybox
+      command: ["tail", "-f", "/var/log/app_protect_dos/dos.log"]
+      volumeMounts:
+        - name: log-volume
+          mountPath: /var/log/app_protect_dos
   volumes:
-  - name: log-volume
-    persistentVolumeClaim:
-      claimName: nginx-dos-logs
+    - name: log-volume
+      persistentVolumeClaim:
+        claimName: nginx-dos-logs

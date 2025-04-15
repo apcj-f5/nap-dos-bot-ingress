@@ -54,7 +54,7 @@ kubectl apply -f nginx-ingress-deployment.yaml
 kubectl apply -f nginx-ingress-service.yaml
 ```
 
-## Step 4: Deploy DoS Arbitrator
+## Step 5: Deploy DoS Arbitrator
 
 Deploy the DoS Arbitrator component:
 
@@ -62,7 +62,7 @@ Deploy the DoS Arbitrator component:
 kubectl apply -f dos-arbitrator.yaml
 ```
 
-## Step 5: Apply Custom Resource Definitions (CRDs)
+## Step 6: Apply Custom Resource Definitions (CRDs)
 
 The necessary CRDs can be found in the NGINX Ingress Controller repository:
 
@@ -76,7 +76,7 @@ kubectl apply -f default-templates-for-kubernetes-ingress/deployments/common/crd
 kubectl apply -f default-templates-for-kubernetes-ingress/deployments/common/crds/appprotectdos.f5.com_dosprotectedresources.yaml
 ```
 
-## Step 9: Create App Protect DoS Policy
+## Step 7: Create App Protect DoS Policy
 
 Apply the DoS policy:
 
@@ -84,7 +84,7 @@ Apply the DoS policy:
 kubectl apply -f dos-policy.yaml
 ```
 
-## Step 10: Apply App Protect DoS Logging Configuration
+## Step 8: Apply App Protect DoS Logging Configuration
 
 Apply the log configuration:
 
@@ -92,7 +92,7 @@ Apply the log configuration:
 kubectl apply -f dos-logconf.yaml
 ```
 
-## Step 11: Apply App Protect DoS Protected Resource
+## Step 9: Apply App Protect DoS Protected Resource
 
 Apply the protected resource:
 
@@ -100,7 +100,7 @@ Apply the protected resource:
 kubectl apply -f dos-protected-resource.yaml
 ```
 
-## Step 12: Deploy Sample Application
+## Step 10: Deploy Sample Application
 
 Deploy the sample application:
 
@@ -108,7 +108,7 @@ Deploy the sample application:
 kubectl apply -f sample-app.yaml
 ```
 
-## Step 13: Create Ingress Resource with DoS Protection
+## Step 11: Create Ingress Resource with DoS Protection
 
 Apply the Ingress resource:
 
@@ -116,7 +116,7 @@ Apply the Ingress resource:
 kubectl apply -f protected-ingress.yaml
 ```
 
-## Step 14: Configure WAF Protection (Optional)
+## Step 12: Configure WAF Protection (Optional)
 
 If you also want to enable WAF protection in addition to DoS:
 
@@ -126,7 +126,7 @@ kubectl apply -f app-protect-logconf.yaml
 kubectl apply -f ingress-with-waf.yaml
 ```
 
-## Step 15: Verify the Installation
+## Step 13: Verify the Installation
 
 Check if all components are running:
 
@@ -147,7 +147,7 @@ EXTERNAL_IP=$(kubectl get svc nginx-ingress -n nginx-ingress -o jsonpath='{.stat
 curl -H "Host: my-protected-app.example.com" http://$EXTERNAL_IP/
 ```
 
-## Step 16: Set Up Monitoring and Logging
+## Step 14: Set Up Monitoring and Logging
 
 Apply the log monitoring setup:
 

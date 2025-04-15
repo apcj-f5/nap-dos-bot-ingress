@@ -18,85 +18,85 @@ spec:
     spec:
       serviceAccountName: nginx-ingress
       containers:
-      - name: nginx-plus-ingress
-        image: private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress:4.0.0
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: http
-          containerPort: 80
-        - name: https
-          containerPort: 443
-        - name: readiness-port
-          containerPort: 8081
-        - name: prometheus
-          containerPort: 9113
-        readinessProbe:
-          httpGet:
-            path: /nginx-ready
-            port: readiness-port
-          periodSeconds: 1
-        securityContext:
-          allowPrivilegeEscalation: true
-          runAsUser: 101
-          capabilities:
-            drop:
-            - ALL
-            add:
-            - NET_BIND_SERVICE
-        env:
-        - name: POD_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        - name: POD_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
-        - name: NGINX_PLUS
-          value: "true"
-        - name: NGINX_IC_ENABLE_APP_PROTECT
-          value: "true"
-        - name: NGINX_IC_ENABLE_APP_PROTECT_DOS
-          value: "true"
-        args:
-          - -nginx-configmaps=$(POD_NAMESPACE)/nginx-config
-          - -enable-app-protect=true
-          - -enable-app-protect-dos=true
-          - -enable-custom-resources=true
-          - -health-status=true
-          - -ready-status=true
-        resources:
-          requests:
-            cpu: 500m
-            memory: 512Mi
-          limits:
-            cpu: 1
-            memory: 1Gi
-        volumeMounts:
-        - name: nginx-etc
-          mountPath: /etc/nginx
-        - name: nginx-cache
-          mountPath: /var/cache/nginx
-        - name: nginx-lib
-          mountPath: /var/lib/nginx
-        - name: nginx-log
-          mountPath: /var/log/nginx
-        - name: app-protect-log
-          mountPath: /var/log/app_protect
-        - name: app-protect-dos-log
-          mountPath: /var/log/app_protect_dos
+        - name: nginx-plus-ingress
+          image: private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress:4.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+            - name: https
+              containerPort: 443
+            - name: readiness-port
+              containerPort: 8081
+            - name: prometheus
+              containerPort: 9113
+          readinessProbe:
+            httpGet:
+              path: /nginx-ready
+              port: readiness-port
+            periodSeconds: 1
+          securityContext:
+            allowPrivilegeEscalation: true
+            runAsUser: 101
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - NET_BIND_SERVICE
+          env:
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NGINX_PLUS
+              value: "true"
+            - name: NGINX_IC_ENABLE_APP_PROTECT
+              value: "true"
+            - name: NGINX_IC_ENABLE_APP_PROTECT_DOS
+              value: "true"
+          args:
+            - -nginx-configmaps=$(POD_NAMESPACE)/nginx-config
+            - -enable-app-protect=true
+            - -enable-app-protect-dos=true
+            - -enable-custom-resources=true
+            - -health-status=true
+            - -ready-status=true
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 1
+              memory: 1Gi
+          volumeMounts:
+            - name: nginx-etc
+              mountPath: /etc/nginx
+            - name: nginx-cache
+              mountPath: /var/cache/nginx
+            - name: nginx-lib
+              mountPath: /var/lib/nginx
+            - name: nginx-log
+              mountPath: /var/log/nginx
+            - name: app-protect-log
+              mountPath: /var/log/app_protect
+            - name: app-protect-dos-log
+              mountPath: /var/log/app_protect_dos
       imagePullSecrets:
-      - name: regcred
+        - name: regcred
       volumes:
-      - name: nginx-etc
-        emptyDir: {}
-      - name: nginx-cache
-        emptyDir: {}
-      - name: nginx-lib
-        emptyDir: {}
-      - name: nginx-log
-        emptyDir: {}
-      - name: app-protect-log
-        emptyDir: {}
-      - name: app-protect-dos-log
-        emptyDir: {}
+        - name: nginx-etc
+          emptyDir: {}
+        - name: nginx-cache
+          emptyDir: {}
+        - name: nginx-lib
+          emptyDir: {}
+        - name: nginx-log
+          emptyDir: {}
+        - name: app-protect-log
+          emptyDir: {}
+        - name: app-protect-dos-log
+          emptyDir: {}

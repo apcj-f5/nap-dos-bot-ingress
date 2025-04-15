@@ -13,13 +13,13 @@ metadata:
     appprotectdos.f5.com/app-protect-dos-resource: "nginx-ingress/sample-protected-resource"
 spec:
   rules:
-  - host: my-protected-app.example.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: sample-app-svc
-            port:
-              number: 80
+    - host: my-protected-app.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: sample-app-svc
+                port:
+                  number: 80

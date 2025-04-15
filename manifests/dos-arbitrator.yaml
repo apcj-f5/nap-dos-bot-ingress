@@ -14,18 +14,18 @@ spec:
         app: nginx-appprotect-dos-arbitrator
     spec:
       containers:
-      - name: appprotect-dos-arbitrator
-        image: private-registry.nginx.com/nginx-ic-nap/app-protect-dos-arbitrator:4.0.0
-        imagePullPolicy: IfNotPresent
-        resources:
-          requests:
-            cpu: 500m
-            memory: 256Mi
-          limits:
-            cpu: 1
-            memory: 512Mi
+        - name: appprotect-dos-arbitrator
+          image: private-registry.nginx.com/nginx-ic-nap/app-protect-dos-arbitrator:4.0.0
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 500m
+              memory: 256Mi
+            limits:
+              cpu: 1
+              memory: 512Mi
       imagePullSecrets:
-      - name: regcred
+        - name: regcred
 ---
 apiVersion: v1
 kind: Service
@@ -34,9 +34,9 @@ metadata:
   namespace: nginx-ingress
 spec:
   ports:
-  - port: 3000
-    targetPort: 3000
-    protocol: TCP
-    name: arbitrator
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+      name: arbitrator
   selector:
     app: nginx-appprotect-dos-arbitrator
