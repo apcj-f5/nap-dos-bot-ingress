@@ -21,7 +21,7 @@ Apply the ServiceAccount and RBAC configuration files:
 
 ```bash
 kubectl apply -f nginx-ingress-service-account.yaml
-kubectl apply -f nginx-ingress-rbac.yaml
+kubectl apply -f nginx-rbac.yaml
 ```
 
 ## Step 2: Prepare Authentication for NGINX Registry
