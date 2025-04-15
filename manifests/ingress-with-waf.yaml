@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: protected-ingress-with-waf
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    appprotect.f5.com/app-protect-policy: "nginx-ingress/sample-waf-policy"
+    appprotect.f5.com/app-protect-enable: "true"
+    appprotect.f5.com/app-protect-security-log-enable: "true"
+    appprotect.f5.com/app-protect-security-log: "nginx-ingress/sample-logconf"
+    appprotect.f5.com/app-protect-security-log-destination: "syslog:server=127.0.0.1:514"
+    appprotectdos.f5.com/app-protect-dos-resource: "nginx-ingress/sample-protected-resource"
+spec:
+  rules:
+  - host: my-protected-app.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: sample-app-svc
+            port:
+              number: 80

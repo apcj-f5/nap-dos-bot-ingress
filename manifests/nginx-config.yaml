@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: nginx-ingress
+data:
+  proxy-protocol: "true"
+  real-ip-header: "proxy_protocol"
+  set-real-ip-from: "0.0.0.0/0"
+  worker-processes: "auto"
+  worker-rlimit-nofile: "65536"
+  worker-connections: "10240"
+  http-snippets: |
+    # App Protect DoS configuration
+    app_protect_dos_security_log_enable on;
+    app_protect_dos_security_log /var/log/app_protect_dos/dos.log syslog:server=127.0.0.1:5561;
+  stream-snippets: ""
+  main-snippets: ""

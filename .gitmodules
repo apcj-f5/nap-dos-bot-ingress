@@ -1,0 +1,3 @@
+[submodule "manifests/default-templates-for-kubernetes-ingress"]
+	path = manifests/default-templates-for-kubernetes-ingress
+	url = https://github.com/nginxinc/kubernetes-ingress.git

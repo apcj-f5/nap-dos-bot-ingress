@@ -1,0 +1,28 @@
+apiVersion: appprotectdos.f5.com/v1beta1
+kind: APDosPolicy
+metadata:
+  name: sample-dos-policy
+  namespace: nginx-ingress
+spec:
+  mitigation_mode: "standard"
+  signatures: "on"
+  bad_actors: "on"
+  automation_tools_detection: "on"
+  tls_fingerprint: "on"
+  behavioral_analytics: "on"
+  bot_defense:
+    settings:
+      mode: "monitor"
+  thresholds:
+    bad_actors:
+      rate: 5
+      burst: 10
+    automation_tools:
+      rate: 10
+      burst: 20
+    tls_fingerprint:
+      rate: 10
+      burst: 20
+    rate_limiting:
+      session_rate: 100
+      session_burst: 200

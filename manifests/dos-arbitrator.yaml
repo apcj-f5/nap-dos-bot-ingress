@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-appprotect-dos-arbitrator
+  namespace: nginx-ingress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-appprotect-dos-arbitrator
+  template:
+    metadata:
+      labels:
+        app: nginx-appprotect-dos-arbitrator
+    spec:
+      containers:
+      - name: appprotect-dos-arbitrator
+        image: private-registry.nginx.com/nginx-ic-nap/app-protect-dos-arbitrator:4.0.0
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 500m
+            memory: 256Mi
+          limits:
+            cpu: 1
+            memory: 512Mi
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-appprotect-dos-arbitrator-svc
+  namespace: nginx-ingress
+spec:
+  ports:
+  - port: 3000
+    targetPort: 3000
+    protocol: TCP
+    name: arbitrator
+  selector:
+    app: nginx-appprotect-dos-arbitrator

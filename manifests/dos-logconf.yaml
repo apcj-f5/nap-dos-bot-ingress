@@ -1,0 +1,13 @@
+apiVersion: appprotectdos.f5.com/v1beta1
+kind: APDosLogConf
+metadata:
+  name: sample-dos-logconf
+  namespace: nginx-ingress
+spec:
+  content:
+    format: splunk
+    max_message_size: 64k
+  filter:
+    traffic-mitigation: all
+    bad-actors: top 10
+    attack-signatures: top 10

@@ -1,0 +1,21 @@
+apiVersion: appprotectdos.f5.com/v1beta1
+kind: APDosProtectedResource
+metadata:
+  name: sample-protected-resource
+  namespace: nginx-ingress
+spec:
+  dos_security_policy:
+    name: sample-dos-policy
+    namespace: nginx-ingress
+  enable_logs: true
+  dos_access_log_dest: "syslog:server=127.0.0.1:514"
+  name: "my-protected-app"
+  app_protect_dos_name: "my-protected-app"
+  logging:
+    dos_security_log_enable: true
+    dos_security_log:
+      name: sample-dos-logconf
+      namespace: nginx-ingress
+  arbitrator_monitor:
+    port: 3000
+    host: nginx-appprotect-dos-arbitrator-svc

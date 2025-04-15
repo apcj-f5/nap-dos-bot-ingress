@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: protected-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    appprotectdos.f5.com/app-protect-dos-resource: "nginx-ingress/sample-protected-resource"
+spec:
+  rules:
+  - host: my-protected-app.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: sample-app-svc
+            port:
+              number: 80
