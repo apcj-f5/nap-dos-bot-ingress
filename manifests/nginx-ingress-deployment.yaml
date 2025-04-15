@@ -19,7 +19,7 @@ spec:
       serviceAccountName: nginx-ingress
       containers:
         - name: nginx-plus-ingress
-          image: private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress:4.0.0
+          image: private-registry.nginx.com/nginx-ic-nap-dos/nginx-plus-ingress:4.0.1
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -59,14 +59,15 @@ spec:
             - name: NGINX_IC_ENABLE_APP_PROTECT_DOS
               value: "true"
           args:
+            - -nginx-plus
             - -nginx-configmaps=$(POD_NAMESPACE)/nginx-config
+            - -mgmt-configmap=$(POD_NAMESPACE)/nginx-config-mgmt
+            - -report-ingress-status
+            - -external-service=nginx-ingress
+            - -enable-app-protect
+            - -enable-app-protect-dos
             - -enable-prometheus-metrics
             - -enable-service-insight
-            - -enable-app-protect=true
-            - -enable-app-protect-dos=true
-            - -enable-custom-resources=true
-            - -health-status=true
-            - -ready-status=true
           resources:
             requests:
               cpu: 500m
