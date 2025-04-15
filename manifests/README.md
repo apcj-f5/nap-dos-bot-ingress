@@ -9,23 +9,7 @@ This guide walks through the deployment of NGINX App Protect (NAP) v4 as a Kuber
 - Access to NGINX App Protect container registry
 - Valid license for NGINX App Protect
 
-## Step 1: Clone the NGINX Ingress Controller Repository
-
-The official NGINX Ingress Controller repository contains example manifests that we can customise:
-
-```bash
-cd default-templates-for-kubernetes-ingress/deployments
-```
-
-## Step 2: Prepare Your Manifest Files Directory
-
-The `manifests` directory exists for your manifests:
-
-```bash
-cd ../../manifests
-```
-
-## Step 3: Create Namespace and RBAC Configuration Files
+## Step 1: Create Namespace and RBAC Configuration Files
 
 First, create the namespace:
 
@@ -40,7 +24,7 @@ kubectl apply -f nginx-ingress-service-account.yaml
 kubectl apply -f nginx-ingress-rbac.yaml
 ```
 
-## Step 4: Prepare Authentication for NGINX Registry
+## Step 2: Prepare Authentication for NGINX Registry
 
 NGINX App Protect images are hosted in a private registry. Create a Kubernetes secret to allow pulling these images:
 
@@ -53,7 +37,7 @@ kubectl create secret docker-registry regcred \
   --docker-email=<your-email>
 ```
 
-## Step 5: Apply NGINX ConfigMap
+## Step 3: Apply NGINX ConfigMap
 
 Apply the ConfigMap with NGINX configuration:
 
@@ -61,7 +45,7 @@ Apply the ConfigMap with NGINX configuration:
 kubectl apply -f nginx-config.yaml
 ```
 
-## Step 6: Deploy NGINX Ingress Controller with App Protect
+## Step 4: Deploy NGINX Ingress Controller with App Protect
 
 Apply the Ingress Controller deployment and service:
 
@@ -70,7 +54,7 @@ kubectl apply -f nginx-ingress-deployment.yaml
 kubectl apply -f nginx-ingress-service.yaml
 ```
 
-## Step 7: Deploy DoS Arbitrator
+## Step 4: Deploy DoS Arbitrator
 
 Deploy the DoS Arbitrator component:
 
@@ -78,18 +62,18 @@ Deploy the DoS Arbitrator component:
 kubectl apply -f dos-arbitrator.yaml
 ```
 
-## Step 8: Apply Custom Resource Definitions (CRDs)
+## Step 5: Apply Custom Resource Definitions (CRDs)
 
 The necessary CRDs can be found in the NGINX Ingress Controller repository:
 
 ```bash
 # From the cloned repository
-kubectl apply -f kubernetes-ingress/deployments/common/crds/appprotect.f5.com_aplogconfs.yaml
-kubectl apply -f kubernetes-ingress/deployments/common/crds/appprotect.f5.com_appolicies.yaml
-kubectl apply -f kubernetes-ingress/deployments/common/crds/appprotect.f5.com_apusersigs.yaml
-kubectl apply -f kubernetes-ingress/deployments/common/crds/appprotectdos.f5.com_apdoslogconfs.yaml
-kubectl apply -f kubernetes-ingress/deployments/common/crds/appprotectdos.f5.com_apdospolicies.yaml
-kubectl apply -f kubernetes-ingress/deployments/common/crds/appprotectdos.f5.com_dosprotectedresources.yaml
+kubectl apply -f default-templates-for-kubernetes-ingress/deployments/common/crds/appprotect.f5.com_aplogconfs.yaml
+kubectl apply -f default-templates-for-kubernetes-ingress/deployments/common/crds/appprotect.f5.com_appolicies.yaml
+kubectl apply -f default-templates-for-kubernetes-ingress/deployments/common/crds/appprotect.f5.com_apusersigs.yaml
+kubectl apply -f default-templates-for-kubernetes-ingress/deployments/common/crds/appprotectdos.f5.com_apdoslogconfs.yaml
+kubectl apply -f default-templates-for-kubernetes-ingress/deployments/common/crds/appprotectdos.f5.com_apdospolicies.yaml
+kubectl apply -f default-templates-for-kubernetes-ingress/deployments/common/crds/appprotectdos.f5.com_dosprotectedresources.yaml
 ```
 
 ## Step 9: Create App Protect DoS Policy
