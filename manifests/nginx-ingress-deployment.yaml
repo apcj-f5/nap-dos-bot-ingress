@@ -60,6 +60,8 @@ spec:
               value: "true"
           args:
             - -nginx-configmaps=$(POD_NAMESPACE)/nginx-config
+            - -enable-prometheus-metrics
+            - -enable-service-insight
             - -enable-app-protect=true
             - -enable-app-protect-dos=true
             - -enable-custom-resources=true
